@@ -1,0 +1,162 @@
+@model IEnumerable<hva_som_skjer.Models.ClubModel>
+
+<body>
+    <div class="team-grid">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Opprette klubb</h2>
+                <p class="text-center">Hvilken kategori passer klubben din best under </p>
+            </div>
+            <form class="form-horizontal" method="post" enctype="multipart/form-data" asp-controller="Club" asp-action="Generate">
+                <fieldset>        
+                    <legend>Oppret klubb</legend>                    
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Name">Navn</label>  
+                    <div class="col-md-4">
+                    <input id="Name" name="Name" type="text" placeholder="Klubbnavn" class="form-control input-md" required="">
+                        
+                    </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Category">Kategori</label>
+                    <div class="col-md-5">
+                        <select id="Category" name="Category" class="form-control">
+                        <option value="Sport">Sport</option>
+                        <option value="Musikk">Musikk</option>
+                        <option value="Teknologi">Teknologi</option>
+                        <option value="Kunst">Kunst</option>
+                        <option value="Utdanning">Utdanning</option>
+                        <option value="Gaming">Gaming</option>
+                        <option value="Biler">Biler</option>
+                        <option value="Friluft">Friluft</option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Description">Beskrivelse</label>
+                    <div class="col-md-4">                     
+                        <textarea class="form-control" id="Description" name="Description"></textarea>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Contact">Kontaktperson</label>  
+                    <div class="col-md-4">
+                    <input id="Contact" name="Contact" type="text" placeholder="" class="form-control input-md">
+                    <span class="help-block">Hovedansvarlig for klubben</span>  
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Adress">Adresse</label>  
+                    <div class="col-md-4">
+                    <input id="Adress" name="Adress" type="text" placeholder="" class="form-control input-md">
+                        
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Website">Nettsted</label>  
+                    <div class="col-md-4">
+                    <input id="Website" name="Website" type="text" placeholder="" class="form-control input-md">
+                        
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Email">E-post</label>  
+                    <div class="col-md-4">
+                    <input id="Email" name="Email" type="text" placeholder="" class="form-control input-md">
+                        
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Phone">Telefon</label>  
+                    <div class="col-md-4">
+                    <input id="Phone" name="Phone" type="text" placeholder="" class="form-control input-md">
+                        
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="Founded">Stiftet</label>  
+                    <div class="col-md-4">
+                    <input id="Founded" name="Founded" type="text" placeholder="" class="form-control input-md">
+                        
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <div class="col-md-10">
+                        <p>Velg Logo bilde:</p>
+                        <input name="logo" type="file" />
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <div class="col-md-10">
+                        <p>Velg Banner bilde:</p>
+                        <input name="banner" type="file" />
+                    </div>
+                    </div>
+
+
+                    <input type="hidden"  id="lat" name ="lat" />
+                    <input type="hidden"  id="lng" name ="lng" />
+
+
+                    <script>
+                        function myMap() {
+                        var mapProp= {
+                            center:new google.maps.LatLng(60.232313, 7.709047),
+                            zoom:5,
+                        };
+                        var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                        var myMarker = new google.maps.Marker({
+                            position: new google.maps.LatLng(60, 8),
+                            draggable: true
+                            });
+                        google.maps.event.addListener(myMarker, 'dragend', function (evt) {
+                            UpdatePosision(evt);                           
+                            document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+                            
+                        });
+                        google.maps.event.addListener(myMarker, 'dragstart', function (evt) {
+                        document.getElementById('current').innerHTML = '<p>Currently dragging marker...</p>';
+                        });
+
+                        map.setCenter(myMarker.position);
+                        myMarker.setMap(map);
+                        }
+
+                    function UpdatePosision(evt){
+                        var lt = evt.latLng.lat().toFixed(3);
+                        var lg = evt.latLng.lng().toFixed(3);
+                        document.getElementById('lat').value = lt;
+                        document.getElementById('lng').value = lg;
+                    }
+                    </script>                   
+
+                    <div id="googleMap" style="width:50%;height:400px;"></div>
+
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8VffkyHMu0xMyfrjwm0fZg0o3h1n9qCM&callback=myMap"></script>
+                    <br>
+                    <p>Dra markøren til din posision eller en posision i næheten av deg hvis du ønsker at <br> mennesker i nærheten av deg skal kunne finne deg </p>
+                    <p id="temp"></p>
+                    <div class="form-group">
+                    <div class="col-md-4">
+                        
+                        <button id="singlebutton" name="singlebutton" class="btn btn-inverce">Submit</button>
+                    </div>
+                    </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,14 @@
+﻿@model hva_som_skjer.Models.SubscrtiptionViewModel
+
+@{
+    ViewData["Title"] = "Hjem";
+}
+
+@{
+    if(User.Identity.IsAuthenticated)
+    {
+        Html.RenderPartial("_HomeLogedInnPartial", Model);
+    }else{
+        Html.RenderPartial("_HomeNotLogedInnPartial");
+    }
+}

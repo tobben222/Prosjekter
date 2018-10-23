@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hva som skjer</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/ionicons.css" />
+        <link rel="stylesheet" href="~/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/css/Calendar-BS4.css" />
+        <link rel="stylesheet" href="~/css/Features-Blue.css" />
+        <link rel="stylesheet" href="~/css/Footer-Basic.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css" />
+        <link rel="stylesheet" href="~/css/Login-Form-Clean.css"/>
+        <link rel="stylesheet" href="~/css/Login-Form-Dark.css" />
+        <link rel="stylesheet" href="~/css/Navigation-with-Button.css" />
+        <link rel="stylesheet" href="~/css/Registration-Form-with-Photo.css" />
+        <link rel="stylesheet" href="~/css/Simple-Slider.css" />
+        <link rel="stylesheet" href="~/css/Team-Clean.css" />
+        <link rel="stylesheet" href="~/css/Team-Grid.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+            crossorigin="anonymous" asp-fallback-href="~/lib/css/bootstrap.min.csss" asp-fallback-test-class="sr-only" asp-fallback-test-property="position"
+            asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/ionicons.min.css" />
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/css/Calendar-BS4.min.css" />
+        <link rel="stylesheet" href="~/css/Features-Blue.min.css" />
+        <link rel="stylesheet" href="~/css/Footer-Basic.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css" />
+        <link rel="stylesheet" href="~/css/Login-Form-Clean.min.css"/>
+        <link rel="stylesheet" href="~/css/Login-Form-Dark.min.css" />
+        <link rel="stylesheet" href="~/css/Navigation-with-Button.min.css" />
+        <link rel="stylesheet" href="~/css/Registration-Form-with-Photo.min.css" />
+        <link rel="stylesheet" href="~/css/Simple-Slider.min.css" />
+        <link rel="stylesheet" href="~/css/Team-Clean.min.css" />
+        <link rel="stylesheet" href="~/css/Team-Grid.min.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" />
+
+        <!--
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+            crossorigin="anonymous" asp-fallback-href="~/lib/css/bootstrap.min.csss" asp-fallback-test-class="sr-only" asp-fallback-test-property="position"
+            asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/lib/css/bootstrap.css" />
+        -->
+    </environment>
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+            <div class="container">
+
+                
+                <a href="@Url.Action("Index","Home")">
+                    <img class="Logo" id="logo" src="../../images\logo.jpg"  height="100">
+                </a> 
+                
+                <!--<a class="navbar-brand" asp-controller="Home" asp-action="Index" style="color:#1051a2;font-family:Audiowide, cursive;font-size:26px;">Hva Som Skjer&nbsp;
+                <br>
+                </a>-->
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="col-lg-3">
+                    <form asp-controller="Club" asp-action="Search" method="GET">
+                        <div class="input-group">
+                            <input name="Search" class="form-control" placeholder="Søk ...">
+                        </div>
+                    </form>
+                </div>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-controller="Club" asp-action="Index" style="color:#1051a2;">Klubber</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-controller="Event" asp-action="Index" style="color:#1051a2;">Arrangementer</a>
+                        </li>
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" asp-controller="Event" asp-action="Calendar" style="color:#1051a2;">Kalender</a>
+                            </li>
+                        }
+                    </ul>
+                     @await Html.PartialAsync("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="body-content">
+        @RenderBody()
+        <hr />
+        <div class="footer-basic">
+            <footer>
+                <div class="social">
+                    <a href="#">
+                        <i class="icon ion-social-instagram"></i>
+                    </a>
+                    <a href="#">
+                        <i class="icon ion-social-twitter"></i>
+                    </a>
+                    <a href="#">
+                        <i class="icon ion-social-facebook"></i>
+                    </a>
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a asp-controller="Home" asp-action="Index">Hjem</a></li>
+                    <li class="list-inline-item"><a href="#">Tjenester</a></li>
+                    <li class="list-inline-item"><a href="#">Om</a></li>
+                    <li class="list-inline-item"><a href="#">Vilkår</a></li>
+                    <li class="list-inline-item"><a href="#">Personvern</a></li>
+                </ul>
+                <p class="copyright">Opphavsrett © 2018 Hva Som Skjer</p>
+            </footer>
+        </div>
+    </div>
+
+    <environment include="Development">
+        <script src="~/js/jquery.js"></script>
+        <script src="~/lib/js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+        <script src="~/js/Simple-Slider1.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.min.js"></script>
+        <script src="~/lib/js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+        <script src="~/js/Simple-Slider1.min.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+
+  <script>
+    var input = document.getElementById("myInput");
+    input.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            window.location.href = "/{Club}/{Search}/{Name}";
+        }
+    });
+  </script>
+</body>
+
+</html>

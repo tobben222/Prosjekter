@@ -1,0 +1,15 @@
+@model hva_som_skjer.Models.ClubModel
+
+@{var imagePath = @Model.Image; }
+
+<div class="card w-50 container">
+    <img asp-action="Club" asp-route-id="@Model.Id" class="card-img-left" src="@Model.Image">
+    <div class="card-body">
+        <a asp-action="Club" asp-route-id="@Model.Id">
+        <h5 class="card-title">@Model.Name</h5>
+        </a>
+        <i class="card-text">@Model.Category</i>
+        <p class="card-text">@Model.Description</p>
+    </div>
+</div>    
+<br>

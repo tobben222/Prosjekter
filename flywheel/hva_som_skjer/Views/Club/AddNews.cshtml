@@ -1,0 +1,37 @@
+@model hva_som_skjer.Models.ClubModel
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<form class="form-horizontal container" method="post" enctype="ultipart/form-data" asp-controller="Club" asp-action="AddNewsMethod">
+    <fieldset>
+    
+    <legend>Publiser Nyhet</legend>
+    <div class="form-group">
+    <label class="col-md-4 control-label" for="Title">Nyhets navn</label>  
+    <div class="col-md-4">
+    <input id="Title" name="Title" type="text" placeholder="" class="form-control input-md" required="">
+        
+    </div>
+    </div>
+
+    <div class="form-group">
+    <label class="col-md-4 control-label" for="Content">Nyhets Innhold</label>
+    <div class="col-md-4">                     
+        <textarea class="form-control" id="Content" name="Content"></textarea>
+    </div>
+    </div>
+
+    <input id="ClubId" name="ClubId" type="hidden" value="@Html.DisplayFor(model => model.Id)">
+
+    <div class="form-group">
+    <label class="col-md-4 control-label" for="Submit"></label>
+    <div class="col-md-4">
+        <button id="Submit" name="Submit" class="btn btn-inverse">Publiser</button>
+    </div>
+    </div>
+
+    </fieldset>
+</form>
+</div>
+
